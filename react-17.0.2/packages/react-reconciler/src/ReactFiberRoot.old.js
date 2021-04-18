@@ -30,6 +30,7 @@ function FiberRootNode(containerInfo, tag, hydrate) {
   this.tag = tag;
   this.containerInfo = containerInfo;
   this.pendingChildren = null;
+  // learn: current 的含义是什么？
   this.current = null;
   this.pingCache = null;
   this.finishedWork = null;

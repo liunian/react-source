@@ -138,6 +138,7 @@ function createRootImpl(
   if (enableEagerRootListeners) {
     const rootContainerElement =
       container.nodeType === COMMENT_NODE ? container.parentNode : container;
+    // learn: 待跟进事件处理
     listenToAllSupportedEvents(rootContainerElement);
   } else {
     if (hydrate && tag !== LegacyRoot) {

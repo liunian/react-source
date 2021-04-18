@@ -205,9 +205,12 @@ export function enqueueUpdate<State>(fiber: Fiber, update: Update<State>) {
   const sharedQueue: SharedQueue<State> = (updateQueue: any).shared;
   const pending = sharedQueue.pending;
   if (pending === null) {
+    // learn: why and effect
     // This is the first update. Create a circular list.
     update.next = update;
   } else {
+    // learn: 把新添加的放在最前面？
+    //        list 而不是数组
     update.next = pending.next;
     pending.next = update;
   }

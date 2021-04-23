@@ -46,6 +46,7 @@
     "coveralls": "^3.0.9",
     "create-react-class": "^15.6.3",
     "danger": "^9.2.10",
+    "dependency-cruiser": "^9.25.1",
     "error-stack-parser": "^2.0.6",
     "eslint": "^7.7.0",
     "eslint-config-fbjs": "^1.1.1",
@@ -132,6 +133,8 @@
     "prettier-all": "node ./scripts/prettier/index.js write",
     "version-check": "node ./scripts/tasks/version-check.js",
     "merge-fork": "node ./scripts/merge-fork/merge-fork.js",
-    "replace-fork": "node ./scripts/merge-fork/replace-fork.js"
+    "replace-fork": "node ./scripts/merge-fork/replace-fork.js",
+    "dc": "depcruise --version && depcruise --config react-dependency-cruiser-config.js -T err packages/*/{*.js,src}",
+    "depcruise:archi": "depcruise --config react-dependency-cruiser-config.js -T archi packages/*/{*.js,src} | dot -T svg | tee react-high-level-dependencies.svg | depcruise-wrap-stream-in-html > react-high-level-dependencies.html"
   }
 }

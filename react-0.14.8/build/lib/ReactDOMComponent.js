@@ -540,6 +540,7 @@ ReactDOMComponent.Mixin = {
           propValue = CSSPropertyOperations.createMarkupForStyles(propValue);
         }
         var markup = null;
+        // READ: 自定义元素 window.customElements (web component)
         if (this._tag != null && isCustomComponent(this._tag, props)) {
           if (propKey !== CHILDREN) {
             markup = DOMPropertyOperations.createMarkupForCustomAttribute(propKey, propValue);

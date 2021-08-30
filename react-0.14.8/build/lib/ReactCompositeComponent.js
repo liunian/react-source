@@ -150,6 +150,10 @@ var ReactCompositeComponentMixin = {
           ReactCurrentOwner.current = null;
         }
       } else {
+        // READ: 对于是 ReactDOM.render 时构造的顶层元素，
+        // 因为 ReactElement 实例的 type（this._currentElement.type）是 ReactMount 中的 TopLevelWrapper，
+        // 那个类不接收这里着三个参数，所以对于顶层元素，这里的初始化参数实际不起作用
+        // 所以后面有重新给 inst.props 等的形式赋值了一遍。
         inst = new Component(publicProps, publicContext, ReactUpdateQueue);
       }
     }
@@ -222,6 +226,10 @@ var ReactCompositeComponentMixin = {
 
     this._renderedComponent = this._instantiateReactComponent(renderedElement);
 
+    // READ: 会一直递归直到 ReactNativeComponent(ReactDOMComponent)
+    //       对于 children，会在 ReactMultiChild 中 mountChildren 来生成对应的 markup，
+    //        里面会调用 ReactReconciler.mountComponent，
+    //        最终调用 ReactCompositeComponent.mountComponent
     var markup = ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, this._processChildContext(context));
     if (inst.componentDidMount) {
       transaction.getReactMountReady().enqueue(inst.componentDidMount, inst);

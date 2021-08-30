@@ -229,6 +229,9 @@ var ReactMultiChild = {
      * @internal
      */
     mountChildren: function (nestedChildren, transaction, context) {
+      // READ: 转为 map 形式的 children，key 用索引的形式来构建 id，用户和父 id 来组成唯一 id
+      // value 是 component
+      // 为什么不用数组形式，待确定是否和 key 有关？
       var children = this._reconcilerInstantiateChildren(nestedChildren, transaction, context);
       this._renderedChildren = children;
       var mountImages = [];
@@ -238,6 +241,7 @@ var ReactMultiChild = {
           var child = children[name];
           // Inlined for performance, see `ReactInstanceHandles.createReactID`.
           var rootID = this._rootNodeID + name;
+          // READ: 递归的形式获取一子元素的 HTML
           var mountImage = ReactReconciler.mountComponent(child, rootID, transaction, context);
           child._mountIndex = index++;
           mountImages.push(mountImage);
